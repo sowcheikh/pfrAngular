@@ -1,0 +1,24 @@
+<mdb-card>
+  <mdb-card-header> <p class="text-center h4"> Liste des reférentiels</p>
+    <button class="btn btn-outline-dark float-right ml-2"><mdb-icon fas icon="user-plus"></mdb-icon></button>
+  </mdb-card-header>
+<div class="row">
+  <mdb-card class="col-sm-4 m-4" borderColor="border-dark" style="max-width: 20rem" *ngFor="let tab of tabs">
+    <mdb-card-header class="bg-transparent border-dark">Libelle
+     <button class="btn btn-outline-dark float-right ml-2"><mdb-icon fas icon="pencil-alt"></mdb-icon></button>
+     <button class="btn btn-outline-danger float-right"><mdb-icon fas icon="times"></mdb-icon></button>
+    </mdb-card-header>
+    <mdb-card-body>
+      <mdb-card-title class="text-dark">
+        <h5>Présentation</h5>
+      </mdb-card-title>
+      <mdb-card-text>Some quick example text to build on the panel title and make up the bulk of the
+        panel's content.</mdb-card-text>
+    </mdb-card-body>
+    <mdb-card-footer class="bg-transparent border-dark">Groupe de compétence</mdb-card-footer>
+    <mdb-card-footer class="bg-transparent border-dark">Programme</mdb-card-footer>
+    <mdb-card-footer class="bg-transparent border-dark">Critère d'évaluation</mdb-card-footer>
+    <mdb-card-footer class="bg-transparent border-dark">Critère d'admission</mdb-card-footer>
+  </mdb-card>
+</div>
+</mdb-card>

@@ -1,0 +1,154 @@
+<div class="promo">
+  <h3>Créer une promotion</h3>
+  <div class="container-fluid">
+    <div>
+      <div class="obligatoire">
+        * Obligatoire
+      </div>
+      <form>
+        <div class="blog-form"></div>
+        <div class="form-group form-row">
+          <label class="col-sm-2" for="lang">Choix de la langue <i>*</i></label>
+          <div class="col-sm-8">
+            <select
+              type="text"
+              name="lang"
+              class="form-control"
+              placeholder="lang"
+            >
+              <option value="">Français</option>
+              <option value="">Anglais</option>
+              <option value="">Arabe</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group form-row">
+          <label class="col-md-2" for="titre">Titre <i>*</i></label>
+          <div class="col-md-8">
+            <input
+              type="text"
+              name="titre"
+              class="form-control"
+              placeholder="Titre"
+            />
+          </div>
+        </div>
+        <div class="form-group form-row">
+          <label class="col-md-2" for="description"
+          >Description de la promotion <i>*</i></label
+          >
+          <div class="col-md-8">
+            <textarea
+              name="description"
+              rows="5"
+              class="form-control"
+              placeholder="Description de la promotion"
+            ></textarea>
+          </div>
+        </div>
+        <div class="form-group form-row">
+          <label class="col-md-2" for="lieu">Lieu de la promotion </label>
+          <div class="col-md-8">
+            <input
+              type="text"
+              name="lieu"
+              class="form-control"
+              placeholder="Lieu de la promotion"
+            />
+          </div>
+        </div>
+        <div class="form-group form-row">
+          <label class="col-md-2" for="ref-agate">Référence Agate</label>
+          <div class="col-md-8">
+            <input
+              type="text"
+              name="ref-agate"
+              class="form-control"
+              placeholder="Référence Agate"
+            />
+          </div>
+        </div>
+        <div class="form-group form-row">
+          <label class="col-md-2" for="fabrique"
+          >Choix de la fabrique <i>*</i></label
+          >
+          <div class="col-md-8">
+            <select name="fabrique" id="" class="form-control">
+              <option value="">SONATEL ACADEMY</option>
+              <option value=""></option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group form-row">
+          <div class="col-sm-6">
+            <div class=" form-group form-row">
+              <label class="col-sm-4" for="date-debut"
+              >Date de début <i>*</i></label
+              >
+              <div class="col-sm-6">
+                <input type="date" name="date-debut" class="form-control" />
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 ">
+            <div class="form-group form-row">
+              <label class="col-2" for="date-fin"
+              >Date de fin <i>*</i></label
+              >
+              <div class="col-sm-6">
+                <input type="date" name="date-fin" class="form-control" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group form-row">
+          <label class="col-md-2" for="referenciel"
+          >Référenciel(s) <i>*</i></label
+          >
+          <div class="col-md-8">
+            <select name="referenciel" id="referenciel" class="form-control">
+              <option value=""></option>
+              <option value=""></option>
+            </select>
+          </div>
+        </div>
+        <mat-chip-list aria-label="Fish selection">
+          <mat-chip>Developpeur.se web et mobile</mat-chip>
+          <mat-chip>Referent.e digital</mat-chip>
+          <mat-chip color="primary" selected>Objets connectés</mat-chip>
+          <mat-chip color="accent" selected>Analyste cybersécurité</mat-chip>
+          <mat-chip>Developpeur.se Data et intelligence artificielle</mat-chip>
+          <mat-chip>Méthode agile de gestion et amorçage de projet</mat-chip>
+          <mat-chip color="primary" selected>Objets connectés</mat-chip>
+          <mat-chip color="accent" selected>Analyste cybersécurité</mat-chip>
+          <mat-chip>Réaliser un site wordpress</mat-chip>
+          <mat-chip>Referent.e digital</mat-chip>
+          <mat-chip color="primary" selected>Coder et déployer une application simple</mat-chip>
+          <mat-chip color="accent" selected>Compétence numérique fondemantal</mat-chip>
+          <mat-chip>Developpeur.se Data</mat-chip>
+          <mat-chip>Technicien d'assistance informatique</mat-chip>
+          <mat-chip color="primary" selected>Objets connectés</mat-chip>
+          <mat-chip color="accent" selected>Analyste cybersécurité</mat-chip>
+        </mat-chip-list>
+        <div class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop (onFileDropped)="uploadFile($event)">
+          <input hidden type="file" #fileInput (change)="uploadFile($event.target.files)">
+        </div>
+        <div  class="files-list" *ngFor="let file of files;let i= index">
+          <p> {{ file }} </p>
+          <button class="btn btn-warning delete-file" (click)="deleteAttachment(i)">
+            <i class="fas fa-trash-alt"></i></button>
+        </div>
+        <div class="form-group form-row">
+          <div class="col-sm-2 col-offset-3">
+            <button class="btn btn-success float-left">&lt;--- Retour</button>
+          </div>
+          <div class="col-md ml-2">
+            <button class="btn btn-success float-right">
+              Créer une promotion et ajouter des apprenants ---&gt;
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
