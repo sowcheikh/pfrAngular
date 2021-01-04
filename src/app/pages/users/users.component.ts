@@ -1,5 +1,8 @@
 import {ChangeDetectorRef, Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
 import {MdbTableDirective, MdbTablePaginationComponent} from 'angular-bootstrap-md';
+import {User} from '../../models/user';
+import {UserService} from '../../services/user.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-users',
@@ -12,15 +15,18 @@ export class UsersComponent implements OnInit {
   @ViewChild(MdbTablePaginationComponent, { static: true }) mdbTablePagination: MdbTablePaginationComponent;
   @ViewChild('row', { static: true }) row: ElementRef;
 
-  elements: any = [];
-  headElements = ['id', 'avatar', 'first', 'last', 'email', 'profile', 'action'];
+  elements: User[] = [];
+  headElements = ['id', 'avatar', 'nom', 'prenom', 'email', 'profile', 'action'];
 
   searchText = '';
   previous: string;
 
-  maxVisibleItems = 4;
+  users: User[];
 
-  constructor(private cdRef: ChangeDetectorRef) {}
+  maxVisibleItems = 6;
+
+  constructor(private cdRef: ChangeDetectorRef, private userService: UserService,
+              private router: Router) {}
 
   // tslint:disable-next-line:typedef
   @HostListener('input') oninput() {
@@ -31,11 +37,17 @@ export class UsersComponent implements OnInit {
   ngOnInit() {
     for (let i = 1; i <= 25; i++) {
       // tslint:disable-next-line:max-line-length
-      this.elements.push({id: i.toString(), avatar: 'https://source.unsplash.com/user/erondu/100x100', first: 'Wpis ' + i, last: 'Last ' + i, email: 'email@ ' + i, profile: 'admin'});
+      this.userService.getAllUser().subscribe(
+        (res) => {
+         // this.elements = res;
+          this.mdbTable.setDataSource(res);
+          this.elements = this.mdbTable.getDataSource();
+          // console.log(res);
+        }
+      );
     }
 
-    this.mdbTable.setDataSource(this.elements);
-    this.elements = this.mdbTable.getDataSource();
+    console.log(this.elements);
     this.previous = this.mdbTable.getDataSource();
   }
 
@@ -52,18 +64,9 @@ export class UsersComponent implements OnInit {
   addNewRow() {
     this.mdbTable.addRow({
       id: this.elements.length.toString(),
-      first: 'Wpis ' + this.elements.length,
-      last: 'Last ' + this.elements.length,
+      first: 'nom ' + this.elements.length,
+      last: 'prenom ' + this.elements.length,
       email: 'email@ ' + this.elements.length
-    });
-    this.emitDataSourceChange();
-  }
-
-  // tslint:disable-next-line:typedef
-  addNewRowAfter() {
-    this.mdbTable.addRowAfter(1, {id: '2', first: 'Nowy', last: 'Row', handle: 'Kopytkowy'});
-    this.mdbTable.getDataSource().forEach((el: any, index: any) => {
-      el.id = (index + 1).toString();
     });
     this.emitDataSourceChange();
   }
@@ -117,5 +120,19 @@ export class UsersComponent implements OnInit {
       this.mdbTablePagination.calculateFirstItemIndex();
       this.mdbTablePagination.calculateLastItemIndex();
     });
+  }
+
+  // tslint:disable-next-line:typedef
+  updateUser(user: User) {
+    window.localStorage.removeItem('editUserId');
+    window.localStorage.setItem('editUserId', user.id.toString());
+    this.router.navigate(['edit-user']);
+  }
+
+  deleteUser(user: User): void {
+    this.userService.delete(user.id)
+      .subscribe( data => {
+        this.users = this.users.filter(u => u !== user);
+      });
   }
 }

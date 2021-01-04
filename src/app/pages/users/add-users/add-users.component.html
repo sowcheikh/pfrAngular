@@ -1,58 +1,93 @@
-<div class="jumbotron">
+<div class="jumbotron shadow rounded">
   <div class="row">
     <div class="col-8">
-      <form>
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
           <label for="nom">Nom</label>
-          <input type="text" class="form-control" id="nom" placeholder="Nom">
+          <input type="text" class="form-control" id="nom"
+                 placeholder="Nom" pattern="^[a-z]+$"
+          formControlName="nom" [ngClass]=" {'is-invalid': submitted && f.nom.errors} ">
+          <div *ngIf="submitted && f.nom.errors" class="invalid-feedback">
+            <div *ngIf="f.nom.errors.required">Le Nom est réquis</div>
+          </div>
         </div>
         <div class="form-group">
           <label for="prenom">Prénom</label>
-          <input type="text" class="form-control" id="prenom" placeholder="Prénom">
+          <input type="text" class="form-control" id="prenom"
+                 placeholder="Prénom" pattern="^[a-z]+$"
+          formControlName="prenom" [ngClass]=" {'is-invalid': submitted && f.prenom.errors} ">
+          <div *ngIf="submitted && f.prenom.errors" class="invalid-feedback">
+            <div *ngIf="f.prenom.errors.required">Le Prénom est réquis</div>
+          </div>
         </div>
         <div class="form-row">
           <div class="form-group col-md-6">
-            <label for="inputEmail4">Email</label>
-            <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" placeholder="Email"
+                   formControlName="email"
+                   [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+            <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+            <div *ngIf="f.email.errors.required">Email est obligatoire</div>
+            <div *ngIf="f.email.errors.email">
+              L'e-mail doit être une adresse e-mail valide</div>
+            </div>
           </div>
           <div class="form-group col-md-6">
             <label for="password">Mot de passe</label>
-            <input type="password" class="form-control" id="password" placeholder="Password">
+            <input type="password" class="form-control" id="password" placeholder="Password"
+            formControlName="password"  [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+          </div>
+          <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+            <div *ngIf="f.password.errors.required">Mot de passe requis</div>
+            <div *ngIf="f.password.errors.minlength">Le mot de passe doit être au moins de 6 caractères</div>
           </div>
         </div>
-        <div class="form-group">
+       <!-- <div class="form-group">
           <label for="adresse">Address</label>
-          <input type="text" class="form-control" id="adresse" placeholder="1234 Main St">
-        </div>
+          <input type="text" class="form-control" id="adresse" placeholder="Entrer votre adresse"
+          formControlName="adresse" [ngClass]="{ 'is-invalid': submitted && f.adresse.errors }">
+        </div> -->
         <div class="row">
           <div class="form-group col-md-6">
             <label for="profile">Profile</label>
-            <select class="custom-select">
+            <select class="form-control" formControlName="profile" [ngClass]="{ 'is-invalid': submitted && f.profile.errors }"
+            >
               <option selected="">Profile</option>
-              <option value="1">Admin</option>
-              <option value="2">Formateur</option>
-              <option value="3">CM</option>
+              <option *ngFor="let profile of profiles" value="{{profile.id}}"> {{profile.libelle}} </option>
             </select>
+            <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+              <div *ngIf="f.password.errors.required">Le profile est requis</div>
+            </div>
           </div>
           <div class="form-group col-md-6">
+            <label for="file">Avatar</label>
+            <div class="input-group">
+              <div class="custom-file">
+                <input type="file" accept="image/*" formControlName="avatar"
+                       (change)="handleFileInput($event)" class="custom-file-input"
+                       [ngClass]="{ 'is-invalid': submitted && f.avatar.errors }">
+                <label class="custom-file-label" for="file">Choose Avatar</label>
+              </div>
+              <div class="input-group-append">
+                <span class="input-group-text">Upload</span>
+              </div>
+            </div>
+          </div>
+          <!--<div class="form-group col-md-6">
             <label for="telephone">Téléphone</label>
-            <input type="text" class="form-control" id="telephone" placeholder="Numéro de téléphone">
-          </div>
+            <input type="tel" class="form-control" id="telephone"
+             pattern="^7[7|6|8|0][0-9]{7}$" placeholder="Numéro de téléphone"
+            formControlName="telephone" [ngClass]="{ 'is-invalid': submitted && f.telephone.errors }">
+            <div *ngIf="f.telephone.errors.required">Le téléphone est requis</div>
+            <div *ngIf="f.telephone.errors.minlength">Entrer un numéro correct</div>
+          </div>-->
         </div>
-        <div class="form-group">
-          <div class="input-group">
-            <div class="custom-file">
-              <input type="file" class="custom-file-input" id="inputGroupFile02">
-              <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
-            </div>
-            <div class="input-group-append">
-              <span class="input-group-text">Upload</span>
-            </div>
-          </div>
-        </div>
-        <button type="submit" class="btn btn-primary">Ajouter</button>
+        <button class="btn btn-primary float-right">Ajouter</button>
+        <button class="btn btn-danger" type="reset" (click)="onReset()">Cancel</button>
       </form>
     </div>
-      <div class="col-4 d-flex justify-content-center"> <img src="assets/images/SA.jpg" alt="..." class="img-thumbnail avatar rounded-circle" ></div>
+      <div [innerHtml]='msg' *ngIf="msg" style="color: red;"></div>
+      <div class="col-4 d-flex justify-content-center"> <img id="output" [src]="url" *ngIf="url"
+         alt="avatar" class="img-thumbnail avatar rounded-circle" ></div>
   </div>
 </div>

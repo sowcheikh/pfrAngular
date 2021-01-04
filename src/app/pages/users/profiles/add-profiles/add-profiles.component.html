@@ -1,0 +1,8 @@
+<div class="example-container">
+  <mat-form-field appearance="fill">
+    <mat-label>Libelle</mat-label>
+    <input matInput placeholder="Entrer le libelle" [formControl]="libelle" required>
+    <mat-error *ngIf="libelle.invalid">{{getErrorMessage()}}</mat-error>
+  </mat-form-field>
+</div>
+<button mat-flat-button color="primary" class="float-right">Primary</button>

@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,7 +16,7 @@ import { HeaderComponent } from './pages/header/header.component';
 import { FooterComponent } from './pages/footer/footer.component';
 import { ErrorComponent } from './error/error.component';
 import { JumbotronComponent } from './jumbotron/jumbotron.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ChatComponent } from './pages/chat/chat.component';
@@ -28,6 +28,21 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MAT_CHIPS_DEFAULT_OPTIONS, MatChipsModule} from '@angular/material/chips';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import {HttpClientModule} from '@angular/common/http';
+import {DragDropDirective} from './drag-drop.directive';
+import { AddGrpComponent } from './gestion-parametre/grp-competence/add-grp/add-grp.component';
+import { EditGrpComponent } from './gestion-parametre/grp-competence/edit-grp/edit-grp.component';
+import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
+import { ApprenantComponent } from './pages/apprenant/apprenant.component';
+import { FormateurComponent } from './pages/formateur/formateur.component';
+import { CmComponent } from './pages/cm/cm.component';
+import {httpInterceptorProviders} from './_helpers';
+import { AddReferentielComponent } from './gestion-parametre/referentiel/add-referentiel/add-referentiel.component';
+import { ListApprenantComponent } from './pages/apprenant/list-apprenant/list-apprenant.component';
+import { AddProfilesComponent } from './pages/users/profiles/add-profiles/add-profiles.component';
+import {MaterialModule} from './material/material.module';
+import { ContactComponent } from './contact/contact.component';
+import { NiveauxComponent } from './gestion-parametre/competence/niveaux/niveaux.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +65,18 @@ import {COMMA, ENTER} from '@angular/cdk/keycodes';
     PromoComponent,
     ReferentielComponent,
     CompetenceComponent,
-    GrpCompetenceComponent
+    GrpCompetenceComponent,
+    DragDropDirective,
+    AddGrpComponent,
+    EditGrpComponent,
+    ApprenantComponent,
+    FormateurComponent,
+    CmComponent,
+    AddReferentielComponent,
+    ListApprenantComponent,
+    AddProfilesComponent,
+    ContactComponent,
+    NiveauxComponent
   ],
   imports: [
     BrowserModule,
@@ -59,14 +85,18 @@ import {COMMA, ENTER} from '@angular/cdk/keycodes';
     FormsModule,
     BrowserAnimationsModule,
     MatFormFieldModule,
-    MatChipsModule
+    MatChipsModule,
+    HttpClientModule,
+    NgMultiSelectDropDownModule.forRoot(),
+    ReactiveFormsModule, MaterialModule
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [{
     provide: MAT_CHIPS_DEFAULT_OPTIONS,
     useValue: {
       separatorKeyCodes: [ENTER, COMMA]
     }
-  }],
+  }, httpInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

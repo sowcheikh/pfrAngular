@@ -1,4 +1,5 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -10,7 +11,7 @@ export class HeaderComponent implements OnInit {
 
   clicked: boolean;
 
-  constructor() {
+  constructor(private authService: AuthService) {
     this.clicked = this.clicked === undefined ? false : true;
   }
 
@@ -20,5 +21,10 @@ export class HeaderComponent implements OnInit {
 
   setClicked(val: boolean): void {
     this.clicked = val;
+  }
+
+  // tslint:disable-next-line:typedef
+  logout() {
+    this.authService.logout();
   }
 }

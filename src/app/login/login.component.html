@@ -1,17 +1,30 @@
-<div class="text-center" style="padding: 10rem">
-  <form class="form-signin">
-    <img class="img-thumbnail rounded-circle mb-4" src="assets/images/SA.jpg" alt="" width="72" height="72">
-    <h1 class="h3 mb-3 font-weight-normal">Veuillez vous connecter</h1>
-    <label for="inputEmail" class="sr-only">Adresse email</label>
-    <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="" autofocus="">
-    <label for="inputPassword" class="sr-only">Mot de passe</label>
-    <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
-    <div class="checkbox mb-3">
-      <label>
-        <input type="checkbox" value="remember-me"> Se souvenir de moi
-      </label>
-    </div>
-    <button [routerLink]="['/admin/users']" class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-    <p class="mt-5 mb-3 text-muted">© 2020-2021</p>
-  </form>
-</div>
+  <div class="container text-center formulaire m-5-auto " style="padding: 10em;">
+    <form class="form-signin" #f="ngForm">
+      <img class="img-thumbnail rounded-circle mb-4" src="assets/images/SA.jpg" alt="" width="72" height="72">
+      <h1 class="h3 mb-3 font-weight-normal">Veuillez vous connecter</h1>
+      <div class="form-group">
+        <span class="input-icon"><i class="fa fa-user"></i></span>
+        <input class="form-control" [(ngModel)]="loginUserData.email"
+               #inputMail="ngModel" type="email" placeholder="Email" ngModel name="email" required email>
+      </div>
+      <div class="alert alert-danger" *ngIf="inputMail.invalid && inputMail
+              .dirty">
+        l'email n'est pas valide!
+      </div>
+      <div class="form-group">
+        <span class="input-icon"><i class="fa fa-lock"></i></span>
+        <input class="form-control" [(ngModel)]="loginUserData.password"
+               #inputPwd="ngModel" type="password" placeholder="Password" ngModel name="password" required password minlength="6">
+      </div>
+      <div class="alert alert-danger" *ngIf="inputPwd.invalid && inputPwd.touched">
+        le password doit contenir au moins 6 caractères!
+      </div>
+      <div class="checkbox mb-3">
+        <label>
+          <input type="checkbox" value="remember-me"> Se souvenir de moi
+        </label>
+      </div>
+      <button class="btn btn-lg btn-primary btn-block rounded" [disabled]="!f.valid" type="submit" (click)="loginUser(f)">Sign in</button>
+      <p class="mt-5 mb-3 text-muted">© 2020-2021</p>
+    </form>
+  </div>

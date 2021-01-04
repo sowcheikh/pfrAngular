@@ -1,0 +1,119 @@
+<mdb-card style="background-color: #3f729b">
+  <mdb-card-header><p class="text-center text-white h3">Ajouter groupes de compétences</p>
+  </mdb-card-header>
+</mdb-card>
+<div class="jumbotron inputs-transparent">
+  <div class="row">
+    <div class="col">
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="libelle">Libellé</label>
+          <input type="text" class="form-control" id="libelle"
+                 placeholder="Libelle" formControlName="libelle">
+        </div>
+        <div class="form-group">
+          <label for="descriptif">
+          Descriptif</label>
+            <textarea
+              formControlName="descriptif"
+              rows="5"
+              class="form-control"
+              placeholder="Description de la promotion">
+            </textarea>
+        </div>
+        <div class="form-group">
+          <mat-form-field appearance="fill">
+            <mat-label>Compétences</mat-label>
+            <mat-select [formControl]="competence" multiple>
+              <mat-option *ngFor="let topping of competences" [value]="topping.id">{{topping.libelle}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+        </div>
+        <mat-accordion class="example-headers-align">
+          <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Niveau 1
+              </mat-panel-title>
+              <mat-panel-description>
+                Ajouter compétence niveau 1
+                <mat-icon>add_circle</mat-icon>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <mat-form-field class="example-full-width">
+              <mat-label>Groupe d'actions à réaliser</mat-label>
+              <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width">
+              <mat-label>Critères d'évaluation</mat-label>
+              <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
+            </mat-form-field>
+            <!-- #docregion action-bar -->
+            <mat-action-row>
+              <button mat-button color="primary" (click)="nextStep()">Next</button>
+            </mat-action-row>
+            <!-- #enddocregion action-bar -->
+          </mat-expansion-panel>
+
+          <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Niveau 2
+              </mat-panel-title>
+              <mat-panel-description>
+                Ajout compétence niveau 2
+                <mat-icon>map</mat-icon>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <mat-form-field class="example-full-width">
+              <mat-label>Groupe d'actions à réaliser</mat-label>
+              <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width">
+              <mat-label>Critères d'évaluation</mat-label>
+              <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
+            </mat-form-field>
+
+            <mat-action-row>
+              <button mat-button color="warn" (click)="prevStep()">Previous</button>
+              <button mat-button color="primary" (click)="nextStep()">Next</button>
+            </mat-action-row>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Niveau 3
+              </mat-panel-title>
+              <mat-panel-description>
+                Ajout compétence niveau 3
+                <mat-icon>map</mat-icon>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <mat-form-field class="example-full-width">
+              <mat-label>Groupe d'actions à réaliser</mat-label>
+              <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width">
+              <mat-label>Critères d'évaluation</mat-label>
+              <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
+            </mat-form-field>
+            <mat-action-row>
+              <button mat-button color="warn" (click)="prevStep()">Previous</button>
+              <button mat-button color="primary" (click)="nextStep()">End</button>
+            </mat-action-row>
+          </mat-expansion-panel>
+
+        </mat-accordion>
+          <button class="btn btn-primary float-right mt-2">Enregistrer</button>
+      </form>
+    </div>
+  </div>
+</div>

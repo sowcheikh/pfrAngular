@@ -3,7 +3,7 @@
     <!-- Collapsible content -->
     <mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark unique-color" [containerInside]="false">
 
-      <logo><a class="navbar-brand" href="#">
+      <logo><a class="navbar-brand" routerLink="/admin">
         <mdb-icon fas icon="home"></mdb-icon>
       </a></logo>
 
@@ -63,7 +63,7 @@
               <mdb-icon fas icon="user"></mdb-icon> Profile<span class="caret"></span></a>
             <div *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown dropdown-primary" role="menu">
               <a class="dropdown-item waves-light" mdbWavesEffect href="#">Profile</a>
-              <a class="dropdown-item waves-light" mdbWavesEffect href="#">Log out</a>
+              <a class="dropdown-item waves-light" routerLink="/"  (click)="logout()">Log out</a>
             </div>
           </li>
         </ul>

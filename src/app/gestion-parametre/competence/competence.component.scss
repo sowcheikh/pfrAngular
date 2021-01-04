@@ -67,3 +67,22 @@ select:focus {
   border-color: #b6b6c6 !important;
   box-shadow: 0 0 5px rgb(135, 135, 141) !important;
 }
+.example-viewport {
+  height: 200px;
+  width: 200px;
+  border: 1px solid black;
+}
+
+.example-item-detail {
+  height: 18px;
+}
+
+.example-alternate {
+  background: rgba(127, 127, 127, 0.3);
+}
+.list-group{
+  max-height: 200px;
+  margin-bottom: 10px;
+  overflow:scroll;
+  -webkit-overflow-scrolling: touch;
+}
